@@ -87,7 +87,7 @@ d3.csv("data_hollywood_sequel.csv", function(data) {
       .duration(200)
     tooltip
       .style("opacity", 1)
-      .html("Country: " + d.country)
+      .html("Story: " + d.Story)
       .style("left", (d3.mouse(this)[0]+30) + "px")
       .style("top", (d3.mouse(this)[1]+30) + "px")
   }
@@ -116,7 +116,10 @@ d3.csv("data_hollywood_sequel.csv", function(data) {
       .style("opacity", "0.5")
       .attr("stroke", "white")
       .style("stroke-width", "0px")
-
+    // -3- Trigger the functions
+    .on("mouseover", showTooltip )
+    .on("mousemove", moveTooltip )
+    .on("mouseleave", hideTooltip )
       
 })
 </script>

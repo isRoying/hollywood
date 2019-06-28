@@ -62,7 +62,8 @@ d3.csv("data_hollywood_sequel.csv", function(data) {
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .attr("class", "axisNormal")
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x)
+            .tickValues([150, 300, 450, 600, 750, 900, 1050, 1200]));
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -70,7 +71,32 @@ d3.csv("data_hollywood_sequel.csv", function(data) {
     .range([ height, 0]);
   svg.append("g")
     .attr("class", "axisNormal")
-    .call(d3.axisLeft(y));
+    .call(d3.axisLeft(y)
+            .tickValues([50, 100, 150, 200, 250, 300, 350, 400]));
+    
+  // Tick line
+  svg.selectAll(".tick line").attr("stroke", "#535A5A")
+    
+  // Add X axis label:
+  svg.append("text")
+      .style("font-family", "Overpass,sans-serif")
+      .style("font-size", "small")
+      .style("fill", "#8C9696")
+      .attr("text-anchor", "middle")
+      .attr("x", width/2 + margin.left)
+      .attr("y", height + margin.top + 20)
+      .text("Average Gross ($m)");
+
+  // Y axis label:
+  svg.append("text")
+      .style("font-family", "Overpass,sans-serif")
+      .style("font-size", "small")
+      .style("fill", "#8C9696")
+      .attr("text-anchor", "middle")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -margin.left + 16)
+      .attr("x", -margin.top - height/2 + 0)
+      .text("Average Budget ($m)")
 
   // Add a scale for bubble size
   var z = d3.scaleLinear()

@@ -22,7 +22,14 @@
 .axisNormal text{
   fill: #8C9696;
     font-family: 'Overpass', sans-serif;
-}  
+} 
+    
+.bubbles {
+  opacity: 0.5;
+}
+.bubbles:hover {
+  opacity: 1;
+}
     
 </style>
 
@@ -75,9 +82,12 @@ d3.csv("data_hollywood_sequel.csv", function(data) {
     .append("div")
       .style("opacity", 0)
       .attr("class", "tooltip")
+      .style('position','absolute')
       .style("background-color", "black")
-      .style("border-radius", "5px")
-      .style("padding", "10px")
+      .style("border-radius", "8px")
+      .style("font-family", "Overpass,sans-serif")
+      .style("font-size", "small")
+      .style("padding", "4px")
       .style("color", "white")
 
   // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
@@ -86,8 +96,8 @@ d3.csv("data_hollywood_sequel.csv", function(data) {
       .transition()
       .duration(200)
     tooltip
-      .style("opacity", 1)
-      .html("Story: " + d.Story)
+      .style("opacity", 0.8)
+      .html(d.Story + " " + d.Year)
       .style("left", (d3.mouse(this)[0]+30) + "px")
       .style("top", (d3.mouse(this)[1]+30) + "px")
   }
@@ -109,13 +119,14 @@ d3.csv("data_hollywood_sequel.csv", function(data) {
     .data(data)
     .enter()
     .append("circle")
+      .attr("class", "bubbles")
       .attr("cx", function (d) { return x(d.AvgGross); } )
       .attr("cy", function (d) { return y(d.AvgBudget); } )
       .attr("r", function (d) { return z(d.Count); } )
       .style("fill", function (d) { return d.hex; })
-      .style("opacity", "0.5")
-      .attr("stroke", "white")
-      .style("stroke-width", "0px")
+    //  .style("opacity", "0.5")
+    //  .attr("stroke", "white")
+    //  .style("stroke-width", "0px")
     // -3- Trigger the functions
     .on("mouseover", showTooltip )
     .on("mousemove", moveTooltip )

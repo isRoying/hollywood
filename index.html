@@ -30,7 +30,7 @@
 .bubbles:hover {
   opacity: 1;
 }
-    
+        
 </style>
 
 <body bgcolor="#19273C">
@@ -54,7 +54,7 @@ var svg = d3.select("#my_dataviz")
 
 //Read the data
 d3.csv("data_hollywood_sequel.csv", function(data) {
-
+    
   // Add X axis
   var x = d3.scaleLinear()
     .domain([0, 1200])
@@ -67,8 +67,8 @@ d3.csv("data_hollywood_sequel.csv", function(data) {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 400])
-    .range([ height, 0]);
+    .domain([0, 200])
+    .range([ height , height *0.25 ]);
   svg.append("g")
     .attr("class", "axisNormal")
     .call(d3.axisLeft(y)

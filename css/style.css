@@ -1,0 +1,36 @@
+<link href="https://fonts.googleapis.com/css?family=Overpass&display=swap" rel="stylesheet">
+.axis line{ stroke: var(--darkgray); }
+.axis path{ stroke: var(--darkgray); }
+.axis text{ fill: var(--lightgray); font-family: 'Overpass', sans-serif; font-size: 12px; } 
+.line { fill: none; stroke: var(--darkgray); stroke-width: 1.2; }
+.tooltip {-webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        pointer-events: none;
+}
+path {fill:none;stroke:var(--darkgray); stroke-width: 1.2; }
+svg text {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        pointer-events: none;
+}
+.p {
+    font-family: "Overpass", sans-serif;
+    fill: var(--lightgray);
+    font-size: 12px;
+}
+.hollow {
+    stroke: var(--lightgray);
+    stroke-width: 1.2   px;
+    fill: var(--darkgray);
+    fill-opacity: 0;
+}
+:root {
+    --lightgray: #8C9696;
+    --darkgray: #424747;
+}

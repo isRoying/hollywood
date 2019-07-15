@@ -1,14 +1,20 @@
-var margin = {top: 80, right: 80, bottom: 80, left: 80},
-    width = 880 - margin.left - margin.right,
-    height = 880 - margin.top - margin.bottom;
+var width = 1024,
+    height = 768;
 
 // append the svg object to the body of the page
 var svg = d3.select("#hollywood_sequel")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", 704)
+    .attr("height", 722)
     .append("g")
+
+const rotatedGroup = svg.append('svg:g')
     .attr("transform", "translate(-157.12,210.88) rotate(-45)");
+
+const legendGroup = svg.append('svg:g')
+    .attr("transform", "translate(-200,-77)");
+
+//... logic related to posiioning
 
 //Read the data
 d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
@@ -18,7 +24,7 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
     var x = d3.scaleLinear()
             .domain([0, 1200])
             .range([ 0, 720 ]);
-    svg.append("g")
+    rotatedGroup.append("g")
         .attr("transform", "translate(0, 720)")
         .attr("class", "axis")
         .call(d3.axisBottom(x)
@@ -34,7 +40,7 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
     var y = d3.scaleLinear()
             .domain([0, 400])
             .range([ 720, 0 ]);
-    svg.append("g")
+    rotatedGroup.append("g")
         .attr("class", "axis")
         .call(d3.axisLeft(y)
             .tickValues([50, 100, 150, 200, 250, 300, 350, 400])
@@ -46,12 +52,12 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
         .attr("transform", function (d) {return "rotate(45)"; });
 
 // Tick line
-    svg.selectAll(".tick line")
+    rotatedGroup.selectAll(".tick line")
         .attr("stroke", "var(--darkgray)")
         .attr("stroke-weight", 1.2);
 
 // Add X axis label:
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("transform", "rotate(45)")
         .attr("x", 540)
@@ -59,7 +65,7 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
         .text("Average Gross ($m)");
 
 // Y axis label:
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("text-anchor", "end")
         .attr("transform", "rotate(45)")
@@ -73,7 +79,7 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
             .range([ 0, 24]);
     
 // Add Return arc axis
-    svg.append("path")
+    rotatedGroup.append("path")
         .attr("transform", "translate(0,720)")
         .attr("d", d3.arc()
             .innerRadius(450)
@@ -84,42 +90,42 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
         .attr("class", "line");
 
 // Add Return major ticks
-    svg.append("line")//0x
+    rotatedGroup.append("line")//0x
         .attr("x1", x(0))
         .attr("y1", y(0))
-        .attr("x2", x(400))
-        .attr("y2", y(400))
+        .attr("x2", x(450))
+        .attr("y2", y(450))
         .attr("class", "line");
 
-    svg.append("line")//1x
+    rotatedGroup.append("line")//1x
         .attr("x1", x(0))
         .attr("y1", y(0))
         .attr("x2", x(800))
         .attr("y2", y(400))
         .attr("class", "line");
 
-    svg.append("line")//2x
+    rotatedGroup.append("line")//2x
         .attr("x1", x(0))
         .attr("y1", y(0))
         .attr("x2", x(1200))
         .attr("y2", y(400))
         .attr("class", "line");
 
-    svg.append("line")//4x
+    rotatedGroup.append("line")//4x
         .attr("x1", x(0))
         .attr("y1", y(0))
         .attr("x2", x(1200))
         .attr("y2", y(240))
         .attr("class", "line");
 
-    svg.append("line")//8x
+    rotatedGroup.append("line")//8x
         .attr("x1", x(0))
         .attr("y1", y(0))
-        .attr("x2", x(1200))
-        .attr("y2", y(133.3333))
+        .attr("x2", x(1350))
+        .attr("y2", y(150))
         .attr("class", "line");
 
-    svg.append("line")//16x
+    rotatedGroup.append("line")//16x
         .attr("x1", x(0))
         .attr("y1", y(0))
         .attr("x2", x(1200))
@@ -127,7 +133,7 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
         .attr("class", "line");
     
 // Add Return axis labels
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("text-anchor", "middle")
         .attr("x", 250)
@@ -135,49 +141,49 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
         .attr("transform", "rotate(45)")
         .text("Average Return");
     
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("x", 183)
         .attr("y", 177)
         .attr("transform", "rotate(45)")
         .text("-1x");
     
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("x", 305)
         .attr("y", 96)
         .attr("transform", "rotate(45)")
         .text("0x");
     
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("x", 423)
         .attr("y", 60)
         .attr("transform", "rotate(45)")
         .text("1x");
     
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("x", 513)
         .attr("y", 54)
         .attr("transform", "rotate(45)")
         .text("2x");
     
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("x", 625)
         .attr("y", 69)
         .attr("transform", "rotate(45)")
         .text("4x");
     
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("x", 718)
         .attr("y", 105)
         .attr("transform", "rotate(45)")
         .text("8x");
     
-    svg.append("text")
+    rotatedGroup.append("text")
         .attr("class", "p")
         .attr("x", 778)
         .attr("y", 137)
@@ -185,77 +191,77 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
         .text("16x");
     
 // Add Return minor ticks
-    svg.append("line")//3x
+    rotatedGroup.append("line")//3x
         .attr("x1", x(594.7))
         .attr("y1", y(148.6778))
         .attr("x2", x(605.3667))
         .attr("y2", y(151.3444))
         .attr("class", "line");
 
-    svg.append("line")//5x
+    rotatedGroup.append("line")//5x
         .attr("x1", x(665))
         .attr("y1", y(110.8333))
         .attr("x2", x(676.9333))
         .attr("y2", y(112.8222))
         .attr("class", "line");
 
-    svg.append("line")//6x
+    rotatedGroup.append("line")//6x
         .attr("x1", x(683.4))
         .attr("y1", y(97.6278))
         .attr("x2", x(695.6667))
         .attr("y2", y(99.3778))
         .attr("class", "line");
 
-    svg.append("line")//7x
+    rotatedGroup.append("line")//7x
         .attr("x1", x(696.2))
         .attr("y1", y(87.0222))
         .attr("x2", x(708.6833))
         .attr("y2", y(88.5833))
         .attr("class", "line");
 
-    svg.append("line")//9x
+    rotatedGroup.append("line")//9x
         .attr("x1", x(712.1667))
         .attr("y1", y(71.2167))
         .attr("x2", x(724.95))
         .attr("y2", y(72.4944))
         .attr("class", "line");
 
-    svg.append("line")//10x
+    rotatedGroup.append("line")//10x
         .attr("x1", x(717.3167))
         .attr("y1", y(65.2111))
         .attr("x2", x(730.1833))
         .attr("y2", y(66.3778))
         .attr("class", "line");
 
-    svg.append("line")//11x
+    rotatedGroup.append("line")//11x
         .attr("x1", x(721.3167))
         .attr("y1", y(60.1111))
         .attr("x2", x(734.25))
         .attr("y2", y(61.1889))
         .attr("class", "line");
 
-    svg.append("line")//12x
+    rotatedGroup.append("line")//12x
         .attr("x1", x(724.4667))
         .attr("y1", y(55.7278))
         .attr("x2", x(737.45))
         .attr("y2", y(56.7278))
         .attr("class", "line");
 
-    svg.append("line")//13x
+    rotatedGroup.append("line")//13x
         .attr("x1", x(726.9833))
         .attr("y1", y(51.9278))
         .attr("x2", x(740.0167))
         .attr("y2", y(52.8611))
         .attr("class", "line");
 
-    svg.append("line")//14x
+    rotatedGroup.append("line")//14x
         .attr("x1", x(729.0333))
         .attr("y1", y(48.6))
         .attr("x2", x(742.1167))
         .attr("y2", y(49.4722))
         .attr("class", "line");
 
-    svg.append("line")//15x
+    rotatedGroup.append("line")//15x
         .attr("x1", x(730.7333))
         .attr("y1", y(45.6722))
         .attr("x2", x(743.8333))
@@ -270,7 +276,7 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
             .style('position', 'absolute')
             .style("background-color", "black")
             .style("border-radius", "4px")
-            .attr("class", "p")
+            .attr("class", "tooltip")
             .style("padding", "4px")
             .style("color", "white");
 
@@ -280,13 +286,17 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
                 .transition()
                 .duration(200);
             tooltip
-                .style("opacity", 0.5)
+                .style("opacity", 0.6)
                 .html(d.Story)
+                //.style("left", (d3.mouse(this)[0] + 30) + "px")
+                //.style("top", (d3.mouse(this)[1] * 30) + "px");
                 .style("left", (d3.mouse(this)[0] * Math.cos (Math.PI / 4) + (d3.mouse(this)[1] * Math.sin (Math.PI * 0.25) - 135) + "px"))
                 .style("top", (d3.mouse(this)[1] * Math.cos (Math.PI / 4) - (d3.mouse(this)[0] * Math.sin (Math.PI * 0.25) - 210) + "px"));
         };
     var moveTooltip = function (d) {
             tooltip
+                //.style("left", (d3.mouse(this)[0] + 30) + "px")
+                //.style("top", (d3.mouse(this)[1] * 30) + "px");
                 .style("left", (d3.mouse(this)[0] * Math.cos (Math.PI / 4) + (d3.mouse(this)[1] * Math.sin (Math.PI * 0.25) - 135) + "px"))
                 .style("top", (d3.mouse(this)[1] * Math.cos (Math.PI / 4) - (d3.mouse(this)[0] * Math.sin (Math.PI * 0.25) - 210) + "px"));
         };
@@ -297,11 +307,8 @@ d3.csv("data/data_hollywood_sequel_min.csv", function (data) {
                 .style("opacity", 0);
         };
     
-//Add group for rotated elements
-var rotateGroup = svg.append("g");
-
 // Add dots
-    var circle = rotateGroup.append('g')
+    var circle = rotatedGroup.append('g')
             .selectAll("dot")
             .data(data)
             .enter()
@@ -311,6 +318,7 @@ var rotateGroup = svg.append("g");
             .attr("r", function (d) { return z(d.Count_2007); })
             .style("fill", function (d) { return d.Hex; })
             .style("opacity", 0.3)
+    
     // Tooltip step 3 Trigger the functions
             .on("mouseover.tooltip", showTooltip)
             .on("mouseover.fill", function(d) { d3.select(this)
@@ -318,7 +326,16 @@ var rotateGroup = svg.append("g");
             .on("mousemove", moveTooltip)
             .on("mouseleave.tooltip", hideTooltip)
             .on("mouseleave.fill", function(d) { d3.select(this)
-                .style("opacity", 0.3) });
+                .style("opacity", 0.3) })
+            .on("click.dot", function() { 
+                const dot = d3.select(this);
+                const opacity = d3.select(this).style("opacity");
+                if (opacity === '0.8') {
+                    dot.style("opacity", 0.3);
+                } else {
+                    dot.style("opacity", 0.8);
+                }
+            });
 
     d3.select("#y2007").on("click", function () { circle
             .sort(function (a, b) { return b.Count_2007 - a.Count_2007; })
@@ -374,52 +391,48 @@ var rotateGroup = svg.append("g");
     var valuesToShow = [1, 10, 25]
     var xCircle = 240
     var xLabel = 280
-    svg
+    legendGroup
       .selectAll("legend")
       .data(valuesToShow)
       .enter()
       .append("circle")
         .attr("cx", xCircle)
-        .attr("cy", function(d){ return height - 240 - z(d) } )
+        .attr("cy", function(d){ return height - z(d) } )
         .attr("r", function(d){ return z(d) })
             .attr("class", "hollow")
-        .attr("transform", "rotate(45)");
     
 // Add legend: segments
-        svg.selectAll("legend")
+        legendGroup.selectAll("legend")
         .data(valuesToShow)
         .enter()
         .append("line")
             .attr('x1', function(d){ return xCircle + z(d) } )
             .attr('x2', xLabel)
-            .attr('y1', function(d){ return height - 240 - z(d) } )
-            .attr('y2', function(d){ return height - 240 - z(d) } )
+            .attr('y1', function(d){ return height - z(d) } )
+            .attr('y2', function(d){ return height - z(d) } )
             .attr('stroke', 'var(--darkgray)')
             .style('stroke-dasharray', ('2,2'))
-        .attr("transform", "rotate(45)");
     
 // Add legend: labels
-    svg
+    legendGroup
       .selectAll("legend")
       .data(valuesToShow)
       .enter()
       .append("text")
         .attr('x', xLabel)
-        .attr('y', function(d){ return height - 240 - z(d) } )
+        .attr('y', function(d){ return height - z(d) } )
         .text( function(d){ return d } )
         .style("font-family", "Overpass,sans-serif")
         .style("font-size", 8)
         .style("fill", "var(--lightgray)")
         .attr('alignment-baseline', 'middle')
-        .attr("transform", "rotate(45)");
 
 // Legend title
-    svg.append("text")
+    legendGroup.append("text")
         .attr('x', xCircle)
-        .attr("y", height - 240 +20)
+        .attr("y", height +20)
         .text("Film Count")
         .attr("class", "p")
         .attr("text-anchor", "middle")
-        .attr("transform", "rotate(45)");
       
 });

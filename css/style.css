@@ -9,6 +9,9 @@
         -ms-user-select: none;
         user-select: none;
         pointer-events: none;
+        font-family: "Overpass", sans-serif;
+        fill: var(--lightgray);
+        font-size: 12px;
 }
 path {fill:none;stroke:var(--darkgray); stroke-width: 1.2; }
 svg text {
